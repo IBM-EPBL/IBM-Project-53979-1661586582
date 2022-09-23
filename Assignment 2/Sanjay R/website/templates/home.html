@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
+<h1 align="center">My HomePage</h1>
+<p>
+		<b>Education</b><br>
+			Bachelor Of Computer Science and Engineering<br>
+			* Velammal Institute Of Technology,Panchetti<br>
+				06/2019 - Present, 8.27(till Sem5)<br>
+			* Higher Secondary Certificate<br>
+			  Government Higher Secondary School-Pondavakkam<br>
+				06/2018 - 05/2019, 69.13%(Biology Group)<br>
+			* Secondary School Leaving Certificate<br>
+			  Kothandaraman High School-Uthokottai<br>
+				07/2016 - 05/2017, 90.4%<br>
+		<b>Personal Details</b><br>
+			Father Name     : Ramesh<br>
+			Mother Name	: Chandra<br>
+			Blood group	: O+
+			Address         : No.14,Perumal Temple Street,Melchitrapakam, Uthukottai602026,India.<br>
+			Language        : TAMIL,ENGLISH<br>
+		<b>Hard Skills</b><br>
+			JAVA[OOPS CONCEPT]: Full Professional Proficiency<br>
+			SQL               : Professional Working Proficiency<br>
+			C                 : Professional Working Proficiency<br>
+			HTML & CSS        :Professional Working Proficiency<br><br><br>
+</p>
+<h1 align="center">Comments</h1>
+<ul class="list-group list-group-flush" id="Description">
+  {% for note in user.notes %}
+  <li class="list-group-item">
+    {{ note.data }}
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </li>
+  {% endfor %}
+</ul>
+<form method="POST">
+  <textarea name="note" id="note" class="form-control"></textarea>
+  <br />
+</ul>
+<form method="POST">
+  <div align="center">
+    <button type="submit" class="btn btn-primary">add notes</button>
+  </div>
+</form>
+{% endblock %}
