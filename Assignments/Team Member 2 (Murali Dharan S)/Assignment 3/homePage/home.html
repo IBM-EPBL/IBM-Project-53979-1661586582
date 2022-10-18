@@ -1,0 +1,64 @@
+<html>
+
+<title>Affedia Hospital</title></head>
+<link rel="icon" href="/img/logo.jpg">
+<style>
+    img{
+        width: 50vw;
+        margin-left: 15%;
+        border-radius: 10px;
+
+    }
+    .cont{
+        background-color: dodgerblue;
+        margin: 10% 10%;
+        padding: 10px 10px;
+        border-radius: 30px;
+    }
+    h2{
+        color:white;
+        text-align: center;
+        margin: 5%;
+    }
+</style>
+<body>
+    <script>
+        window.watsonAssistantChatOptions = {
+          integrationID: "ce8969cb-b57b-4663-a681-875911049b37", // The ID of this integration.
+          region: "us-east", // The region your integration is hosted in.
+          serviceInstanceID: "9c61aa63-d843-45b0-9e1d-2a908aeee05d", // The ID of your service instance.
+          onLoad: function(instance) { instance.render(); }
+        };
+        setTimeout(function(){
+          const t=document.createElement('script');
+          t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+          document.head.appendChild(t);
+        });
+      </script>
+<div>
+<h1 style="text-align: center;margin: 5%;">Welcome to Affedia Hospital</h1>
+<div class="cont">
+    <h2>Safe and fast Ambulance</h2>
+    <img src="/img/renato-marques-TAVLQ8JkRyo-unsplash.jpg" alt="">
+    <br>
+    <br>
+    <h2>Comfortable beds</h2>
+    <img src="/img/adhy-savala-zbpgmGe27p8-unsplash.jpg" alt="">
+    <br>
+    <br>
+    <h2>Quick Report</h2>
+    <img src="/img/lucas-vasques-9vnACvX2748-unsplash.jpg" alt="">
+    <br>
+    <br>
+    <h2>High facility Scans</h2>
+    <img src="/img/marcel-scholte-LPurJnihmQI-unsplash.jpg" alt="">
+    <br>
+    <br>
+    <h2>Doctor Consult</h2>
+    <img src="/img/Annotation 2022-10-18 145516.jpg" alt="">
+    <br>
+    <br>
+</div>
+</div>
+</body>
+</html>

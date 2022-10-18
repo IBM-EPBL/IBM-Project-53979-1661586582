@@ -1,0 +1,1 @@
+https://web-chat.global.assistant.watson.appdomain.cloud/preview.html?backgroundImageURL=https%3A%2F%2Fus-east.assistant.watson.cloud.ibm.com%2Fpublic%2Fimages%2Fupx-9c61aa63-d843-45b0-9e1d-2a908aeee05d%3A%3A9f790999-98c8-4b58-a143-cb24752f77b6&integrationID=ce8969cb-b57b-4663-a681-875911049b37&region=us-east&serviceInstanceID=9c61aa63-d843-45b0-9e1d-2a908aeee05d
