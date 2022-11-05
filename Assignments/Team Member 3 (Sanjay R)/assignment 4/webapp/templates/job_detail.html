@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+
+{% block javascript %}
+<script>
+
+  $( document ).ready(function() {
+    var i
+    var skills = ["Dev-Ops","Java", "C++", "Javascript", "Web", "Back-End"]
+    var checkedSkills = {{ job.skills | safe }}
+    console.log(checkedSkills)
+    for (i = 0; i < skills.length; i++) {
+      if (checkedSkills.includes(skills[i]))
+        $('#skills-table').append('<tr><td><label class="mdl-checkbox" for="checkbox-' + skills[i] + '"> <input type="checkbox" name="skills" id="checkbox-' + skills[i] + '" value="' + skills[i] + '" class="mdl-checkbox__input" checked {% if user.username != job.username %} disabled="true" {% endif %}><span class="mdl-checkbox__label" >'+ skills[i] + '</span> </label> </td></tr>')
+      else
+        $('#skills-table').append('<tr><td><label class="mdl-checkbox" for="checkbox-' + skills[i] + '"> <input type="checkbox" name="skills" id="checkbox-' + skills[i] + '" value="' + skills[i] + '" class="mdl-checkbox__input" {% if user.username != job.username %} disabled="true" {% endif %}><span class="mdl-checkbox__label">'+ skills[i] + '</span> </label> </td></tr>')
+    }
+  });
+
+  function checkForm() {
+    var errors_text = "";
+    $('div.required > input').each(function (){
+        if ($(this).val().length === 0){
+          var label = $("label[for='" + $(this).attr('id') + "']");
+          errors_text += label.text() + " is required, ";
+          console.log(errors_text);
+        }
+    });
+
+    if (errors_text.length > 0){
+      $("#general_error").removeAttr("hidden");
+      $("div#general_error > small.error").html(errors_text);
+    } else {
+      $(".sign-up-form").submit();
+    }
+
+  }
+</script>
+{% endblock %}
+
+{% block content %}
+
+{% if user %}
+{% include 'sidebar_nav.html' %}
+{% else %}
+<body class="with-sidebar">
+  <div class="mdl-layout__container">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-drawer-button">
+    <header class="mdl-layout__header mdl-layout__header--transparent">
+      <div class="mdl-layout-icon"></div>
+      <div class="mdl-layout__header-row mdl-color--grey-800 mdl-color-text--white">
+        <!-- Title -->
+        <span class="mdl-layout-title">{{name_page}}</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav style="background-color: transparent; box-shadow: none;display: contents;" class="mdl-navigation mdl-layout--large-screen-only">
+          <div style="display: contents;">
+            <div>
+            <i class="material-icons">person</i>
+          </div>
+            <a class="mdl-navigation__link mdl-color-text--white" href="{{url_for('dashboard')}}">{% if user %} Dashboard {% else %} Login {% endif %}</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+      <main class="mdl-layout__content mdl-color--grey-100">
+        <div class='main-div'>
+{% endif %}
+
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+  <div class="card mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col">
+    <div class="card-content">
+      <form class="sign-up-form" method="post">
+        <div class="card-content">
+          <span class="card-title grey-text text-darken-2">
+            Job Details
+          </span>
+          <div class="section row">
+            <div class="col s12">
+
+              <div class="layout-row row">
+                <div class="col s12 m12">
+                  <div class="row">
+                    <div class="input-field col s12 required" id="position_container">
+                      <input id="position" name="position" value="{{job.position}}" type="text" {% if user.username != job.username %} disabled="true" {% endif %}>
+                      <label class="active" for="position">Position</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="layout-row row">
+                <div class="col s12 m6">
+                  <div class="row">
+                    <div class="input-field col s12 required" id="email_container">
+                      <input id="companyName" name="companyName" value="{{job.companyName}}" type="text" {% if user.username != job.username %} disabled="true" {% endif %}>
+                      <label class="active" for="companyName">Company Name</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s12 m6">
+                  <div class="row">
+                    <div class="input-field col s12 required" id="location_container">
+                      <input id="location" name="location" value="{{job.location}}" type="text" {% if user.username != job.username %} disabled="true" {% endif %}>
+                      <label class="active" for="location">Location</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="layout-row row">
+                <div class="col s12 m12">
+                    <div class="row">
+                      <div class="input-field col s12 skill_container required"  id="jobDescription_container">
+                        <textarea class="materialize-textarea" cols="40" id="jobDescription" name="jobDescription" rows="10" style="height: 44px;" {% if user.username != job.username %} disabled="true" {% endif %}>{{job.jobDescription}}</textarea>
+                        <label class="active" for="jobDescription"></label>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <input id="dataCreation" name="dateCreation" value="{{job.dateCreation}}" type="text" hidden>
+              <div class="section row">
+                  <div class="col s12">
+                    <h5>Skills</h5>
+
+                    <div class="layout-row row skills">
+                      <div class="col s12 m10">
+                        <div class="row">
+                          <div style="height:150px;overflow-y:scroll;overflow-x:hidden" class="input-field col s12 skill_container"  id="skill_container">
+                            <table id="skills-table">
+                            </table>
+                            <!-- <textarea class="materialize-textarea" cols="40" id="skill" name="skill" rows="10" style="height: 44px;"></textarea>
+                            <span class="add-skill"><i style="cursor: pointer;" class="material-icons prefix">add_circle</i></span>
+                            <label class="active" for="skill"></label> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+          <div id="general_error" class="errors" hidden>
+            <small class="error"></small>
+          </div>
+
+          {% if user.username == job.username %}
+          <div style="overflow: auto;display: block;">
+              <span class="card-title grey-text text-darken-2">
+                Applications
+              </span>
+              {% if job.applications %}
+              <table class="mdl-data-table mdl-js-data-table" style="white-space: normal !important;">
+                <thead>
+                  <tr>
+                    <th class="myth mdl-data-table__cell--non-numeric">First name</th>
+                    <th class="myth mdl-data-table__cell--non-numeric">Last Name</th>
+                    <th class="myth mdl-data-table__cell--non-numeric">Email</th>
+                    <th class="myth mdl-data-table__cell--non-numeric">City</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for a in job.applications %}
+                    <tr onclick="document.location = '';">
+                      <td class="mdl-data-table__cell--non-numeric">{{a.firstName}}</td>
+                      <td class="mdl-data-table__cell--non-numeric">{{a.lastName}}</td>
+                      <td class="mdl-data-table__cell--non-numeric">{{a.email}}</td>
+                      <td class="mdl-data-table__cell--non-numeric">{{a.city}}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% else %}
+              <div id="error-parent" class="pres_atl-error">
+                    <div id="error-child">
+                      <h1 class="mdl-card__title-text">There aren't applications yet</h1>
+                    </div>
+              </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+        {% if user.username == job.username %}
+        <div class="card-action left-align" style="/*display: flex;width: 100%;flex-wrap: wrap;*/">
+          <input type="button" class="btn edit-att-btn" name=save value="Save" onclick="checkForm()">
+          <input type="submit" name="delete" class="btn edit-att-btn delete-att" value="Delete" style="background: rgb(244,67,54);">
+        </div>
+        {% endif %}
+
+        {% if user.role == "SEEKER" %}
+        <div class="card-action left-align" style="/*display: flex;width: 100%;flex-wrap: wrap;*/">
+            <input type="submit" name=apply class="btn edit-att-btn" value="Apply">
+        </div>
+        {% elif not user %}
+        <div class="card-action left-align" style="/*display: flex;width: 100%;flex-wrap: wrap;*/">
+            <p>Please login to apply</p>
+        </div>
+        {% endif %}
+
+      </form>
+    </div>
+  </div>
+<div class="mdl-layout-spacer"></div>
+</div>
+
+{% include 'footer.html' %}
+
+{% endblock %}
