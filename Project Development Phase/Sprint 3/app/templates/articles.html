@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid landing">
+    <div class="row">
+        {% for source, title, desc, author, img, p_date, url in articles %}
+        <figure class="newscard">
+            <img src="{{ img }}" alt="something" />
+            <div class="date">{{ p_date }}</div>
+            <figcaption>
+                <h3>{{ source.name }}</h3>
+                <h2> {{ title }} </h2>
+                <h6>-{{ author }}</h6>
+                <p>{{ desc }}</p>
+                <a href="{{ url }}" class="read-more">Read More</a>
+            </figcaption>
+        </figure>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
