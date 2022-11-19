@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: news-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: news-app
+  template:
+    metadata:
+      labels:
+        app: news-app
+    spec:
+      containers:
+        - name: news-app
+          image: icr.io/news-tracker-application/newstracker@sha256:a7dc6710cffd56ecf28d9722bf5bd4cc8cb5bae7eadae64c45eb9bdd25d2fe9e
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              protocol: TCP
