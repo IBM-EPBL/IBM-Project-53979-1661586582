@@ -1,2 +1,0 @@
-Flask
-newsapi-python==0.2.6
